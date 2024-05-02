@@ -3,25 +3,17 @@ document.addEventListener("DOMContentLoaded", function() {
   const slideIn = urlParams.get('slide-in');
 
   if (slideIn === 'true') {
-    // Immediately apply CSS to position the body below the viewport
-    document.documentElement.style.cssText = `
-      position: relative;
-      transform: translateY(100vh); /* Start below the viewport */
-      transition: transform 0.5s ease-out;
-    `;
-
-    // Use requestAnimationFrame to ensure styles are applied before any painting
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        document.documentElement.style.transform = 'translateY(0)'; // Slide to normal position
-      });
-    });
-
-    // Remove the query param after the animation finishes
-    setTimeout(() => {
-      const newUrl = new URL(window.location.href);
-      newUrl.searchParams.delete('slide-in');
-      window.history.replaceState(null, null, newUrl);
-    }, 500); // Match the duration of the CSS transition
+    let sections = documet.querySelectorAll('.sections');
+    sections[0].style.transform = 'translateY(100dvh)';
+    sections[1].style.transform = 'translateY(100dvh)';
+    sections[0].style.transition = 'all 0.5s';
+    sections[1].style.transition = 'all 0.5s';
+    setTimeout(()=>{
+      sections[0].style.transform = 'translateY(-100dvh)';
+      sections[1].style.transform = 'translateY(-100dvh)';
+    }, 100)
   }
+  const newUrl = new URL(window.location.href);
+  newUrl.searchParams.delete('slide-in');
+  window.history.replaceState(null, null, newUrl);
 });
