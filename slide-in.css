@@ -1,7 +1,3 @@
-.slide-in {
-    transform: translateY(100dvh);
-  animation: slideIn 1s;
-  }
 @keyframes slideIn {
     0% {
       transform: translateY(100dvh);
