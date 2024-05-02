@@ -3,21 +3,19 @@ document.addEventListener("DOMContentLoaded", function() {
   const slideIn = urlParams.get('slide-in');
 
   if (slideIn === 'true') {
-    // Dynamically inject CSS for the sliding effect
-    const style = document.createElement('style');
-    document.head.appendChild(style);
-    style.textContent = `
-      body {
-        position: relative;
-        transform: translateY(100vh); /* Start below the viewport */
-        transition: transform 0.5s ease-out;
-      }
+    // Immediately apply CSS to position the body below the viewport
+    document.documentElement.style.cssText = `
+      position: relative;
+      transform: translateY(100vh); /* Start below the viewport */
+      transition: transform 0.5s ease-out;
     `;
 
-    // Start the slide-in effect after a slight delay to ensure styles are applied
-    setTimeout(() => {
-      document.body.style.transform = 'translateY(0)'; // Slide to normal position
-    }, 10);
+    // Use requestAnimationFrame to ensure styles are applied before any painting
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.documentElement.style.transform = 'translateY(0)'; // Slide to normal position
+      });
+    });
 
     // Remove the query param after the animation finishes
     setTimeout(() => {
