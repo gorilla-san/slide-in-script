@@ -3,6 +3,9 @@
 
   if (slideIn === 'true') {
     document.body.classList.add('slide-in');
+    setTimeout(()=>{
+      document.body.classList.remove('slide-in');
+    }, 1000)
   }
   const newUrl = new URL(window.location.href);
   newUrl.searchParams.delete('slide-in');
